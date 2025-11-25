@@ -1,154 +1,338 @@
 <!DOCTYPE html>
-<html lang="en">  
+<html lang="es">  
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makeup Star and Sky. </title>
+    <title>Star & Sky - Makeup Store</title>
     <style>
-        .menu {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e8b4e8, #b19cd9);
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Menú lateral */
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+        }
+        
+        .logo {
             text-align: center;
-            margin: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
         }
         
         .menu ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: inline-block;
+            list-style: none;
         }
         
         .menu li {
-            display: inline-block;
-            margin: 0 30px;
+            margin-bottom: 15px;
         }
         
         .menu a {
+            display: block;
+            padding: 12px 15px;
             text-decoration: none;
             color: #333;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 15px;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
         
         .menu a:hover {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .content-section h2 {
             color: #8a2be2;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .content-section h3 {
+            color: #c44569;
+            margin: 15px 0 10px;
+            font-size: 1.3em;
+        }
+        
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .product-category {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .product-category ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .product-category li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .product-category li:last-child {
+            border-bottom: none;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .form-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-top: 30px;
         }
     </style>
 </head>
 
-<body style="background-color: rgb(174, 109, 177);">
-    <header>
-        <h1 style="text-align: center">STAR & SKY - Makeup since 2025</h1>
-    </header>
+<body>
+    <div class="container">
+        <!-- Menú lateral -->
+        <aside class="sidebar">
+            <div class="logo">
+                <!-- <div class="logo-icon">★</div> -->
+                <img src="/img/STAR2.jpg" alt="Logo de STAR & SKY" style="width: 170px; height: auto; border-radius: 50%; margin-top: 10px;">
+                <h3>STAR & SKY</h3>
+            </div>
+            
+            <nav class="menu">
+                <ul>
+                    <li><a href="#inicio">🏠 Inicio</a></li>
+                    <li><a href="#productos">💄 Productos</a></li>
+                    <li><a href="galeria.html">📷 Galería</a></li>
+                    <li><a href="#pedidos">🛒 Pedidos</a></li>
+                    <li><a href="#contacto">📞 Contacto</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="header">
+                <h1>STAR & SKY - Makeup Store</h1>
+                <p style="color: white; font-size: 1.2em;">Expertas en Beauty Hacks 💁🏻‍♀️💜💄</p>
+            </header>
 
-    <section style="margin-left: 50px;">
-    <img style="display: block; margin-left: auto; margin-right: auto; width: 250px;" src="/img/STAR.jpg" alt="logo Makeup"/>
 
+            <section id="productos" class="content-section">
+                <h2>💄 NUESTROS PRODUCTOS</h2>
+                
+                <div class="product-list">
+                    <div class="product-category">
+                        <h3>💧 Bases</h3>
+                        <ul>
+                            <li>Base en Crema</li>
+                            <li>Base en Polvo</li>
+                            <li>Base Líquida</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-category">
+                        <h3>🎨 Paletas de Sombras</h3>
+                        <ul>
+                            <li>Sombras de bolsillo</li>
+                            <li>Paleta 40 tonos</li>
+                            <li>Paleta 60 tonos</li>
+                            <li>Paleta 90 tonos</li>
+                            <li>Sombras con brillos</li>
+                            <li>Sombras fosforescentes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-category">
+                        <h3>💋 Labiales</h3>
+                        <ul>
+                            <li>Labial Matte</li>
+                            <li>Gloss Brillante</li>
+                            <li>Líquido Matte</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-category">
+                        <h3>👁️ Máscaras de Pestañas</h3>
+                        <ul>
+                            <li>Color Negro Intenso</li>
+                            <li>Transparente</li>
+                            <li>Colores Especiales</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-category">
+                        <h3>✨ Pestañas Postizas</h3>
+                        <ul>
+                            <li>Paquete de 10 pares</li>
+                            <li>Paquete de 5 pares</li>
+                            <li>Paquete de 3 pares</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
+            <section id="contacto" class="content-section">
+                <h2>📍 NUESTRAS SUCURSALES</h2>
+                
+                <table>
+                    <tr>
+                        <th>🏪 Sucursal</th>  
+                        <th>📍 Ubicación</th>  
+                        <th>⏰ Horarios</th>  
+                    </tr>
+                    <tr>
+                        <td><strong>Coyoacán</strong></td>   
+                        <td><a href="https://goo.gl/maps/K2cyeqeG4Qgh927p9" target="_blank">Centro de Coyoacán</a></td>  
+                        <td>Lunes a Viernes<br>9:00am - 5:00pm</td>  
+                    </tr>
+                    <tr>
+                        <td><strong>Centro</strong></td>  
+                        <td><a href="https://goo.gl/maps/YHKoqqGLWV1rqyhL7" target="_blank">Plaza Izazaga 38</a></td>  
+                        <td>Lunes a Sábado<br>9:00am - 6:00pm</td>  
+                    </tr>
+                    <tr>
+                        <td><strong>Roma Norte</strong></td>  
+                        <td><a href="https://goo.gl/maps/9Q1VMqh7eo16yAea9" target="_blank">Cotorritos Cibeles</a></td> 
+                        <td>Lunes a Viernes<br>10:00am - 5:00pm</td>  
+                    </tr>
+                </table>
+            </section>
 
-<nav class="menu">
-  <ul>
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Sobre nosotros</a></li>
-    <li><a href="#">Contacto</a></li>
-    <li><a href="#">Productos</a></li>
-    <li><a href="#">Pedidos</a></li>
-  </ul>
-</nav>
-
-
-  <h2>STORAGE</h2>
-    
-
-    <h3>Tipos de bases</h3>
-    <ul style="font-size: 17px;">
-        <li>Crema</li>
-        <li>Polvo</li>
-        <li>Líquida</li>
-    </ul>
-
-    <h3>Paleta de sombras</h3>
-    <ul style="font-size: 17px;">
-    <li>Sombras de bolsillo</li>
-    <li>Sombras de 40 tonos</li>
-    <li>Sombras de 60 tonos</li>
-    <li>Sombras de 90 tonos</li>
-    <li>Sombras de brillos</li>
-    <li>Sombras fosforescentes</li>
-    </ul>
-
-    <h3>Labiales</h3>
-    <ul style="font-size: 17px;">
-        <li>Labial Matte</li>
-        <li>Gloss</li>
-        <li>Líquido Matte</li>
-    </ul>
-
-    <h3>Máscara de pestañas</h3>
-    <ul style="font-size: 17px;">
-        <li>Color negro</li>
-        <li>Transparente</li>
-        <li>Otro color</li>
-    </ul>
-
-    <h3>Eyelashes</h3>
-    <ul style="font-size: 17px;">
-        <li>Paquete de 10</li>
-        <li>Paquete de 5</li>
-        <li>Paquete de 3</li>
-    </ul>
-
-</section>
-
-<hr>
-
-<section style="text-align: center">
-    <h2>UBICACIÓN</h2>
-    <h3 style="font-size: 20px;">Sucursales</h3>
-
-    <table style="margin: 0 auto; border-collapse: collapse; font-size: 20px; margin-bottom: 50px ;">
-
-        <!-- <hr> agrega una linea dibujada -->
-       <!--  <hr> -->
-
-        <!-- th es el header y td es table data -->
-        <tr>
-          <th>Nombre</th>  
-          <th>Ubicación</th>  
-          <th>Horarios</th>  
-        </tr>
-
-        <tr>
-            <td>Coyoacan</td>   
-            <!-- <b></b> es para poner negritas -->
-            <td><a href="https://goo.gl/maps/K2cyeqeG4Qgh927p9" target="blank"> Centro de Coyoacan</a></td>  
-            <td>Lunes a Viernes de 9:00am a 5:00pm</td>  
-        </tr>
-        <tr>
-            <td>Centro</td>  
-            <td><a href="https://goo.gl/maps/YHKoqqGLWV1rqyhL7" target="blank">Plaza Izazaga 38</a></td>  
-            <td>Lunes a Sábado de 9:00am a 6:00pm</td>  
-        </tr>
-        <tr>
-            <td>Roma Norte</td>  
-            <td><a href="https://goo.gl/maps/9Q1VMqh7eo16yAea9" target="blank"> Cotorritos Cibeles </a></td> 
-            <td>Lunes a Viernes de 10:00am a 5:00pm</td>  
-        </tr>
-    </table>
-
-</section>
-
- <hr>
-
- <section>
-    <h2 style="text-align: center;">PEDIDOS EN LÍNEA</h2>
-    <h2 style="text-align: center;">Realiza tus pedidos aquí!!!!</h2>
-
-    <h2>Selecciona tus productos</h2>
-
-    <!-- FORMULARIO -->
+            <section id="pedidos" class="content-section">
+                <h2>🛒 PEDIDOS EN LÍNEA</h2>
+                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">¡Realiza tu pedido fácil y rápido!</p>
+                
+                <div class="form-section">
 
 <form style="margin-left: 20px;" action="https://sheetdb.io/api/v1/0e4w9kibobioy" method="POST">
     <h3>Tipos de bases</h3>
@@ -257,14 +441,16 @@
         Campo para enviar <input type="submit" value="Enviar"><br> -->
 
 
-</section>
-</form>
-
-
-<footer style="margin-top: 60px;">
-  <p>Author: PAMELA ALBA - 2025</p>
-  <p> Email: <a href="mailto:pame@gmail.com">pame@gmail.com</a></p>
-</footer>
-
+                </div>
+            </section>
+            
+            <footer>
+                <p><strong>Star & Sky Makeup Store</strong></p>
+                <p>Creado por: PAMELA ALBA - 2025</p>
+                <p>📧 Email: <a href="mailto:pame@gmail.com">pame@gmail.com</a></p>
+                <p>✨ Tu belleza es nuestra pasión ✨</p>
+            </footer>
+        </main>
+    </div>
 </body>
 </html>

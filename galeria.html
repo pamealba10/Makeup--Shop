@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - Star & Sky Makeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e8b4e8, #b19cd9);
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Menú lateral */
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .menu ul {
+            list-style: none;
+        }
+        
+        .menu li {
+            margin-bottom: 15px;
+        }
+        
+        .menu a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu a:hover, .menu a.active {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        /* Contenido principal */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        /* Galería en carrete */
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-section h2 {
+            color: #8a2be2;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+        
+        /* Carrete horizontal */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 20px;
+        }
+        
+        .carousel-item {
+            min-width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .carousel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .carousel-item:hover::before {
+            opacity: 1;
+        }
+        
+        .carousel-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .carousel-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Grid de productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        /* Modal para vista ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .carousel-item {
+                min-width: 250px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Menú lateral -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">⭐</div>
+                <h3>STAR & SKY</h3>
+            </div>
+            
+            <nav class="menu">
+                <ul>
+                    <li><a href="index.html">🏠 Inicio</a></li>
+                    <li><a href="index.html#productos">💄 Productos</a></li>
+                    <li><a href="galeria.html" class="active">📷 Galería</a></li>
+                    <li><a href="index.html#pedidos">🛒 Pedidos</a></li>
+                    <li><a href="index.html#contacto">📞 Contacto</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <header class="header">
+                <h1>📷 GALERÍA DE PRODUCTOS</h1>
+                <p style="color: white; font-size: 1.2em;">Descubre nuestra colección completa</p>
+            </header>
+            
+            <!-- Carrete principal -->
+            <section class="gallery-section">
+                <h2>✨ Productos Destacados</h2>
+                
+                <div class="carousel-container">
+                    <div class="carousel" id="mainCarousel">
+                        <div class="carousel-item" onclick="openModal('Bases de Maquillaje', 'Perfecta cobertura para todo tipo de piel')">
+                            <div>
+                                💧<br>
+                                <strong>Bases Premium</strong><br>
+                                Cobertura perfecta
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" onclick="openModal('Paletas de Sombras', 'Colores vibrantes y duraderos')">
+                            <div>
+                                🎨<br>
+                                <strong>Paletas Exclusivas</strong><br>
+                                90 tonos disponibles
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" onclick="openModal('Labiales de Lujo', 'Fórmula de larga duración')">
+                            <div>
+                                💋<br>
+                                <strong>Labiales Matte</strong><br>
+                                Larga duración
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" onclick="openModal('Máscaras Premium', 'Volumen y longitud extrema')">
+                            <div>
+                                👁️<br>
+                                <strong>Máscaras de Pestañas</strong><br>
+                                Volumen extremo
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" onclick="openModal('Pestañas Postizas', 'Efecto natural y glamoroso')">
+                            <div>
+                                ✨<br>
+                                <strong>Pestañas Postizas</strong><br>
+                                Efecto natural
+                            </div>
+                        </div>
+                        
+                        <div class="carousel-item" onclick="openModal('Kit Completo', 'Todo lo que necesitas para brillar')">
+                            <div>
+                                🎁<br>
+                                <strong>Kit Star & Sky</strong><br>
+                                Colección completa
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="moveCarousel(-1)">⬅️ Anterior</button>
+                    <button class="carousel-btn" onclick="moveCarousel(1)">Siguiente ➡️</button>
+                </div>
+            </section>
+            
+            <!-- Grid de productos -->
+            <section class="gallery-section">
+                <h2>🛍️ Catálogo Completo</h2>
+                
+                <div class="products-grid">
+                    <div class="product-card" onclick="openModal('Base Líquida Premium', 'Cobertura natural, acabado sedoso. Disponible en 12 tonos.')">
+                        <div class="product-image">💧</div>
+                        <div class="product-name">Base Líquida</div>
+                        <div class="product-price">$299 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Paleta Rainbow', '40 sombras en colores vibrantes. Perfecta para looks creativos.')">
+                        <div class="product-image">🌈</div>
+                        <div class="product-name">Paleta Rainbow</div>
+                        <div class="product-price">$599 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Labial Matte Rose', 'Fórmula de larga duración en tono rosa perfecto.')">
+                        <div class="product-image">🌹</div>
+                        <div class="product-name">Labial Matte</div>
+                        <div class="product-price">$199 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Máscara Volumen+', 'Pestañas hasta 3 veces más voluminosas.')">
+                        <div class="product-image">👁️</div>
+                        <div class="product-name">Máscara Volumen+</div>
+                        <div class="product-price">$249 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Pestañas Naturales', 'Paquete de 5 pares, efecto natural y elegante.')">
+                        <div class="product-image">✨</div>
+                        <div class="product-name">Pestañas Naturales</div>
+                        <div class="product-price">$149 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Kit Principiante', 'Todo lo básico para empezar tu rutina de maquillaje.')">
+                        <div class="product-image">🎨</div>
+                        <div class="product-name">Kit Principiante</div>
+                        <div class="product-price">$799 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Gloss Diamante', 'Brillo intenso con partículas de diamante.')">
+                        <div class="product-image">💎</div>
+                        <div class="product-name">Gloss Diamante</div>
+                        <div class="product-price">$179 MXN</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openModal('Base en Polvo HD', 'Acabado mate perfecto para fotografías.')">
+                        <div class="product-image">📸</div>
+                        <div class="product-name">Base Polvo HD</div>
+                        <div class="product-price">$349 MXN</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Producto</h2>
+            <p id="modalDescription">Descripción del producto</p>
+            <button class="carousel-btn" style="margin-top: 20px;" onclick="closeModal(); window.location.href='index.html#pedidos'">
+                🛒 Agregar al Pedido
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const carousel = document.getElementById('mainCarousel');
+        const totalSlides = carousel.children.length;
+        
+        function moveCarousel(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides - 2) {
+                currentSlide = totalSlides - 3;
+            }
+            if (currentSlide < 0) {
+                currentSlide = 0;
+            }
+            
+            const slideWidth = 320; // 300px + 20px gap
+            carousel.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+        }
+        
+        // Auto-scroll cada 5 segundos
+        setInterval(() => {
+            if (currentSlide < totalSlides - 3) {
+                moveCarousel(1);
+            } else {
+                currentSlide = -1;
+                moveCarousel(1);
+            }
+        }, 5000);
+        
+        function openModal(title, description) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('productModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+        
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
